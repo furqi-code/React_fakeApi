@@ -15,83 +15,72 @@ export function App() {
     notifications: [],
   });
 
-  // state to update ho gaya lekin immediately re-render nhi hota isliye inside logs empty print ho rha
+  // The state has updated but the re-render does not happen immediately, so the logs inside useEffect were printing empty arrays
   // useEffect runs after first render and then it depends on its dependancy arr[]
+  // api call sbko lg gyi h aur ab one by one kr k response ayega and re-render hoga accordingly
   useEffect(() => {
     axios
       .get("https://fake-json-api.mock.beeceptor.com/notifications")
       .then((response) => {
-        setApi((prevState) => {
-          return {
-            ...prevState,
-            notifications: response.data,
-          };
-        });
-        console.log("notification api inside useEffect", api.notifications);
+        setApi((prevState) => ({
+          ...prevState,
+          notifications: response.data,
+        }));
+        console.log("Notifications API data loaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+  }, []);
 
+  useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
-        setApi((prevState) => {
-          return {
-            ...prevState,
-            users: response.data,
-          };
-        });
-        console.log("users api inside useEffect: ", api.users);
+        setApi((prevState) => ({
+          ...prevState,
+          users: response.data,
+        }));
+        console.log("Users API data loaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+  }, []);
 
+  useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/photos")
       .then((response) => {
-        setApi((prevState) => {
-          return {
-            ...prevState,
-            photos: response.data,
-          };
-        });
-        console.log("photos api inside useEffect: ", api.photos);
+        setApi((prevState) => ({
+          ...prevState,
+          photos: response.data,
+        }));
+        console.log("Photos API data loaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+  }, []);
 
+  useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/todos")
       .then((response) => {
-        setApi((prevState) => {
-          return {
-            ...prevState,
-            todo: response.data,
-          };
-        });
-        console.log("todo list api inside useEffect: ", api.todo);
+        setApi((prevState) => ({
+          ...prevState,
+          todo: response.data,
+        }));
+        console.log("Todo API data loaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+  }, []);
 
+  useEffect(() => {
     axios
       .get("https://fakeapi.net/orders")
       .then((response) => {
-        setApi((prevState) => {
-          return {
-            ...prevState,
-            orders: response.data.data,
-          };
-        });
-        console.log("online orders api inside useEffect", api.orders);
+        setApi((prevState) => ({
+          ...prevState,
+          orders: response.data.data,
+        }));
+        console.log("Orders API data loaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, []);
 
   console.log("users api outside useEffect: ", api.users);
